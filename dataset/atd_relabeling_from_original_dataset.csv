@@ -1,0 +1,189 @@
+no,source,text,Indicator,class
+1,issue,"Camel 2.17.x upgraded spring version to 4.x in most of the components. but for camel-cxf component, it still has to use spring-dm and spring version 3.x, the spring version range in the Import-Package should keep [3.2,4), not [4.1,5). Now the ERROR will happen when install camel-cxf feature into karaf container (in case of both Spring 4.x and Spring 3.x are installed in the container) To fix it, make change to the pom.xml",using_obsolete_technology,N
+2,issue,It'd be nice if we could upgrade camel-grpc to use the latest grpc-java library as there are some improvements to how it does class loading:,using_obsolete_technology,Y
+3,issue,The current java transport client is due EOL in near future and it will be a good idea we switch the the new high level rest client instead. The new high level rest client is only released from version 5.6.0 and towards so an general upgrade of the dependencies is required for the ELK component. This also add the support for basic authentication without the need of x-pack. This is usefull when running ELK behind a reverse proxy.,using_obsolete_technology,Y
+4,issue,"As we don't use the CxfSoap component any more, it's time to clean it up.",using_obsolete_technology,N
+5,issue,"@ Charles I just checked out the example, I think you can put all the camel routes configuration files into a single module and use Profile to start the services one by one.",violation_of_modularity,N
+6,issue,HawtDB 1.1 has been released. Change log at: We should upgrade to pick up the listed bug fixes:,using_obsolete_technology,N
+7,issue,Tracy I think the SMX bundle is *wrong* as Jasypt 1.7 got rid of commons-lang and commons-codec (the latter has bugs). So we need an updated SMX bundle which *do not* important/use any of those commons stuff.,using_obsolete_technology,Y
+8,issue,I would like to upgrade to Jasypt 1.7 as we can lose the JDK1.5 stuff and other dependencies which is no longer needed.,using_obsolete_technology,Y
+9,issue,The camel-atom component is using an ancient incubator version of abdera which will make it hard to work with camel-cxf. Updating to 1.1.2 which is what CXF uses would help.,using_obsolete_technology,Y
+10,issue,I am currently looking into the dependencies betwen packages in camel-core. The packages org.apache.camel and form the camel api. So I am trying to make them not depend on other packages from camel-core. One problem there is the starter class Main. It needs access to impl packages as it needs to start camel. So it should not live in org.apache.camel. I propose to move it to To not break anything right now I will create a deprecated class Main in org.apache.camel that extends the moved Main. We can remove the deprecated version in camel 3.0,violation_of_modularity,Y
+11,issue,"Camel Blueprint support is limited/hardcoded to Aries. This makes it impossible to use in JBoss 7 or with another blueprint implementation like Gemini. The following classes use various things from Aries. * * * * * Now obviously the last three are related to the custom namespace handler for Aries. It would be good if these were moved into their own module, something like or the like. That people can choose to include if they would like to use the custom blueprint namespace handler in Aries. Otherwise the camel-blueprint module should be implementation agnostic and work on all blueprint containers. Not just Aries.",violation_of_modularity,Y
+12,issue,"There are bunch fixes of ABDERA-281, ABDERA-290 can help camel-atom work smoothly with OSGi platform. We need to upgrade the the abdera to 1.1.3 once it is out.",using_obsolete_technology,Y
+13,issue,CXF 2.x uses deprecated class removed in Spring 4. Because of that camel-cxf doesn't work with Spring 4. This issue has been discussed on this (2) forum thread already. (1) (2),using_obsolete_technology,N
+14,issue,When downloading artifacts we have a many repos. Several of them are specific for a single/few components. We should move these repo settings to these targeted components and let the uber pom.xml have only the major public maven repos. Maybe some of the repos is out-of-date and not used anymore.,violation_of_modularity,Y
+15,issue,"Should be updated to latest release as we are far behind on this one. It may no longer work in OSGi and that is fine, just remove the feature",using_obsolete_technology,N
+16,issue,camel-examples should not be in BOM,violation_of_modularity,N
+17,issue,There is somekind of routebuilder ref you can add to ref to a single class. However we could consider restrucutre the DSL a bit so the package / routebuilderef or what we call it is in a configuration element. We could move all the jmx and other stuff in that one too. so you have a <configuration> element to start with where we can add all the weird camel stuff. And then have a more clean root element with fewer high level tags to select among.,violation_of_modularity,N
+18,issue,"No, this was built from source; I grabbed a tarball, modified the .gclient line to include a safesync_url, added a ~/.gyp/include.gypi file to fix the architecture, gclient sync'ed, and then moved to src/build to run hammer. I wouldn't discount the package maintainer (e.g., me) having messed up, though.",violation_of_modularity,N
+19,issue,38462: Extension manifest tests should be moved to,violation_of_modularity,N
+20,issue,"It's not clear to me yet why this happens. I've looked at the code and haven't figured out why your libraries are using libc's malloc at that point. The first thing I would suggest you do is upgrade gtk. You seem to be stuck on 2.10, which is many years old.",using_obsolete_technology,N
+21,issue,68550: Quicktime Plugin for Chrome 10.0.612.3 dev outdated?,using_obsolete_technology,N
+22,issue,View exposes numerous a11y accessors and setters. It'd be nicer if there was an a11y metadata object that a View could configure and return. This would also remove the windows.h dependency from view.h,violation_of_modularity,Y
+23,issue,9120: Move a11y accessors on View onto separate utility object,violation_of_modularity,N
+24,issue,"The previous reply is correct. It seems you're using the latest version of delete-project's stable-2.16 branch, with an older version of Gerrit that doesn't implement the withLimit API. Either upgrade gerrit to 2.16.5, or install delete-project that is built from an older revision. The withLimit usage was added in , so it should work if you build delete-project at the previous revision Note that the withLimit change was implemented to fix a quite severe performance issue in the plugin. It is recommended to take the route of upgrading gerrit to 2.16.5.",using_obsolete_technology,Y
+25,issue,I guess must be adjusted to respect the new folder /proto/testing/.,violation_of_modularity,N
+26,issue,"Reopening but lowering priority, since this is a serious problem for people using the old UI. Hopefully someone will have time to do one of (a) migrate the project access page in the old UI to use the REST API, (b) get rid of the old UI, or (c) make the gwtjsonrpc handler use the same ACL check logic as the REST API does.",using_obsolete_technology,Y
+27,issue,"Python 2 is very near to its end of life [1]. Some Linux distributions already switched to using Python 3 per default: * Arch Linux (2010): [2] * OpenMandriva (2017): [3] * Gentoo uses a configurable option with Python 3 as default: [4] Other will do it in near future: * OpenSuse: [5] * Fedora: [6] * [1] * [2] * [3] * [4] * [5] * [6] Gerrit build tool chain should work out of the box on those systems that switched to Python 3 per default, i.e. /usr/bin/python is pointing to Python 3.x.",using_obsolete_technology,Y
+28,issue,looks better. The version declaration needs to go into for unified versions across the entire project. HADOOP-9594 is an example of this,violation_of_modularity,N
+29,issue,Moved version declaration into,violation_of_modularity,N
+30,issue,You seemed to have unnecessarily moved the doRead() function's location in the server.java file. Can you please leave it in its original place in the file and please resubmit the patch.,violation_of_modularity,N
+31,issue,"Actually, , can you move the test from to +1 once it is addressed.",violation_of_modularity,N
+32,issue,"Netty 3 is EOL and the last Netty 3 was released on 6/2016, more than 3 years old. We can't afford if Netty is found to have security vulnerability one day. Time to prioritize this work.",using_obsolete_technology,Y
+33,issue,"This method is not specific to TaskTracker, i.e., it should work fine with LocalRunner too, right? So there ought to be a better place to put it. JobConf? JobClient?",violation_of_modularity,N
+34,issue,"I think including some common shellprofiles is a great idea. At the same time, it's increasingly evident that hadoop-tools needs to get broken up. e.g., HADOOP-12556.",violation_of_modularity,Y
+35,issue,Some code is used only by tests. Let's relocate them.,violation_of_modularity,Y
+36,issue,Move the test code in ipc.Client to test,violation_of_modularity,N
+37,issue,Moved to Hadoop Common project because this code is in hadoop-common module.,violation_of_modularity,N
+38,issue,Avro 1.8.x makes generated classes serializable which makes them much easier to use with Spark. It would be great to upgrade Avro to 1.8.x,using_obsolete_technology,N
+39,issue,We should upgrade Apache RAT to something modern.,using_obsolete_technology,Y
+40,issue,Maybe I should move it to hadoop-common project.,violation_of_modularity,N
+41,issue,"Currently, the HOD allocation operation does the following distinct steps - allocate a requested number of nodes, [optionally] transfer a hadoop tarball and install it, then provision hadoop by bringing up the appropriate daemons. It would be nice to separate these layers so each of them could be done independently. This would lead to a very great flexibility in users using the cluster. For e.g. one could allocate a certain number of nodes, then have hod bring up one version, then bring it down, then repeat this again and so on.",violation_of_modularity,Y
+42,issue,"It doesn't have any specific dependency on the version, all we need is the latest version, since the vesion of json.jar that we are using currently is missing some classes.",using_obsolete_technology,Y
+43,issue,"The zlib library supports the ability to perform two types of flushes when deflating data. It can perform both a Z_SYNC_FLUSH, which forces all input to be written as output and byte-aligned and resets the Huffman coding, and it also supports a Z_FULL_FLUSH, which does the same thing but additionally resets the compression dictionary. The Hadoop wrapper for the zlib library does not support either of these two methods. Adding support should be fairly trivial. An additional deflate method that takes a fourth ""flush"" parameter, and a modification to the native c code to accept this fourth parameter and pass it along to the zlib library. I can submit a patch for this if desired. It should be noted that the native SUN Java API is likewise missing this functionality, as has been noted for over a decade here:",using_obsolete_technology,N
+44,issue,The recent change to mapred-queues.xml that causes many mapreduce tests to break unless you delete out of your build tree is bad. We need to make sure that nothing in conf is used in the unit tests. One potential solution is to copy the templates into build/test/conf and use that instead.,violation_of_modularity,Y
+45,issue,JUnit tests should never depend on anything in conf,violation_of_modularity,Y
+46,issue,"For problem #1, the solution is the same as is already done in some other test cases. We just need to add a workaround to clear the ZK MBeans before running the tearDown method. It's a hack, but in the absense of a fix for ZOOKEEPER-1438, it's about all we can do. I spent some time investigating problem #2. The bug is as follows: - these test cases create a new and call on it before running the main body of the tests. Although they don't call {{joinElection()}}, the creation of the elector does create a {{zkClient}} object with an associated Watcher. - in the test case, we shut down and restart ZK. This causes the above Watcher instance to fire its Disconnected and then Connected events. There was a bug in the handling of the Connected event that would cause it to re-monitor the lock znode regardless of whether it was previously in the election. - So, when ZK comes back up, there was not two but *three* electors racing for the lock. However, two of the electors actually corresponded to the same dummy service. In some cases this race would be resolved in such a way that the test timed out. I don't think this is a problem in practice, since the ""formatZK"" call runs in its own JVM in the current code. However, it's worth fixing to get the tests to not be flaky, and to have a more reasonable behavior. There are several fixes to be done: - Add extra asserts for to catch cases where we might accidentally re-join the election when we weren't supposed to be in it. - Fix the handling of the ""Connected"" event to only re-join if the elector wants to be in the election - Cause exceptions thrown by watcher callbacks to be propagated back as fatal errors Will post a patch momentarily.",using_obsolete_technology,Y
+47,issue,"Courtesy Philip Su, we found that were not being used at all. The configuration exists but is never used. Its also mentioned in mapred-default.xml and . Also the method in Shell.java is now useless and can be removed.",using_obsolete_technology,N
+48,issue,"Nicholas, this should be moved to hadoop-common, right?",violation_of_modularity,N
+49,issue,GSet and LightWeightGSet are currently in hdfs. I agree that we should move them to common. Let's do it in a separated issue?,violation_of_modularity,N
+50,issue,"check out HBASE-12332. We don't have a FileStatus to attach to in that particular case initially. In the snapshot case we have the pattern file and get a fileStatus, and in the replicas case we have a file status as well[1] The fs was needed for (and and Probably can just as easily as of a FS in Didn't tackle those pieces yet (they also seem more tightly coupled than ideal) [1]",violation_of_modularity,Y
+51,issue,"Do we have to have a class named FirstOnRowFakeCell at top level of our class hierarchy? Is it only used in CellUtil? Could it be an inner class of it? Any reason for this change? 5252 this.isScan = scan.isGetScan() ? -1 : 0; 5252 this.isScan = scan.isGetScan() ? 1 : 0; Otherwise, seems good.",violation_of_modularity,N
+52,issue,Yes this class need not be top level.. Let me see how we can make it inner. Yes this change is intended. Pls see the compare in isStopROw is changed. So we need this change.,violation_of_modularity,N
+53,issue,"I will change it in next patch. BTW , we might add some more similar classes in future. This is byte[] backed fake Cell impl and we will have a BB backed one also. Also LastOnRowFakeCell will come in.. JFYI. I will keep this class(es) private audience only even if CellUtil is public exposed. Thanks Stack.",violation_of_modularity,Y
+54,issue,We cannot bump JLine to a newer version since the version of JRuby we ship is an old one (see HBASE-13338). Also this shouldn't cause any issue to use zkcli since it only disables the auto complete functionality. Another option is to use a version of ZK that doesn't have ZOOKEEPER-1718.,using_obsolete_technology,N
+55,issue,"Removed directory layout reference from CompactionTool and moved it to The new tool named CompactionTool is added with changed interface. The new CT takes table, regions, column families as an input command line arguments. Both the legacy and new CT use APIs provided by MasterStorage/ RegionStorage classes. Map Reduce functionality of old CT is not yet implemented in the new CT as there are on-going discussions about it. Manually tested old CT and the new CT.",violation_of_modularity,Y
+56,issue,[C++] Move implementation from header to cc for request retry,violation_of_modularity,N
+57,issue,Josh: See HBASE-20123. Looks like we would need hadoop 3.1.0+ (or 3.0.2+) to make backup tests fully working.,using_obsolete_technology,Y
+58,issue,hbase jar has hbase-default.xml at top-level rather than under a conf dir,violation_of_modularity,N
+59,issue,"Currently, explanation about *Custom WAL Directory* configuration is a sub-topic of *Bulk Loading,* chapter, yet this subject has not much relation with bulk loading at all. It should rather be moved to a sub-section of the *Write Ahead Log (WAL)* chapter.",violation_of_modularity,N
+60,issue,"Agreed that we should move all messaging up into zk and remove heartbeating carrying messages but I was thinking that for 0.90, delete of region clears it from HMaster in-memory too. The worst that could happen is balancer ran meantime. If so, it'll fail close of a region not opened anywhere but the in-memory PENDING_CLOSE would be cleared by the delete-of-region cleanup. What you think?",violation_of_modularity,Y
+61,issue,Let's move all the client classes into the o.a.h.h.client package. Files to move: * HTable * HBaseAdmin * HConnection * HConnectionManager Is there anything else I am missing? Obviously a lot of the tests will get moved too.,violation_of_modularity,Y
+62,issue,Move client classes into client package,violation_of_modularity,Y
+63,issue,I'm fine w/ all being under o.a.h.h.r rather than under subpackages under o.a.h.h.r -- especially if its loads of work. Introducing o.a.h.h.r package is sufficient improvement over what we had previous. Good stuff.,violation_of_modularity,N
+64,issue,"Moved code, added tests",violation_of_modularity,N
+65,issue,Site and info plugins are too old. The site plugin is in the wrong place. Can't generate reports w/o update and move of location.,using_obsolete_technology,N
+66,issue,"We should update our code that fetches and updates column stats to use the new bulk APIs introduced in Hive .13. Instead of fetching a single column at a time, we can now fetch stats for a list of column names.",using_obsolete_technology,Y
+67,issue,Thanks for the feedback. I just looked at the code a little and didn't see any easy improvements. The main perf problem is most likely due to the function not being codegen'd. There's a note in the code about some LLVM limitations. Our LLVM version is about 2 years old so an upgrade might help. An upgrade is on our todo list but I couldn't say when that would be done. Also the function heavily relies on boost so that could be an issue.,using_obsolete_technology,Y
+68,issue,Impala uses an older version of httpcore which breaks KMS integration,using_obsolete_technology,N
+69,issue,Kudu's utility library depends on We need to add the most recent version to the toolchain.,using_obsolete_technology,N
+70,issue,One of the parts of this patch was cleanup of how descriptor tables were managed. As described in the commit message: That cleanup should be independent of the larger patch so we could get it in separately.,violation_of_modularity,Y
+71,issue,SQL Statements to Remove or Adapt is out of date,using_obsolete_technology,N
+72,issue,Split up for readability and compile time,violation_of_modularity,N
+73,issue,"patch did not apply cleanly.. fixed that, the wrong libthrift.jar file location and updated the changelog. => committed",violation_of_modularity,N
+74,issue,"I really like to have Windows port within next Thrift release. The suggestion by [David and to use APR on Windows and do minimal changes on the current implementation is a key factor to bring this up and running. However, this patch depends on pthreads for windows and as mentioned on the dev mailing list or within Jira = Is APR feasible for your? Do you really need thet libevent version? Most GNU/Linux distro still provide 1.4.x and I would really like to keep capability to build and use thrift without lot of extra versions of libraries not within a standard distribution.",using_obsolete_technology,Y
+75,issue,"I like the map declaration, but I think that the MetaData class should live outside of the generated code. It's not actually a class that will vary by structure, so it should just live in c.f.thrift.",violation_of_modularity,N
+76,issue,"Overall, looks good. A few more comments: - Tests have moved from ./test/csharp/ to ./lib/csharp/test - The C# generator has a warning about an unused variable. Can you please delete that variable? - I don't think that we should be building the MVC projects by default. For example, Mono does not have support for MVC3, so I couldn't compile those elements. Overall, looks good though.",violation_of_modularity,Y
+77,issue,"hi, Carl Yeksigian 1. Tests for MVC have moved to ./lib/csharp/test 2. I don't find any unused variable in my patch, could you please show me where it is? 3. I agree with your point, by default, we should not build the MVC projects. so I create a solution file ""thrift.mvc.sln"", but this will increase the maintenance effort. please check the attachment patch file.",violation_of_modularity,Y
+78,issue,"Ah ha, turns out Ubuntu's thrift package is v 0.8, which is quite outdated and doesn't include exception support.",using_obsolete_technology,Y
+79,issue,after moving test to subdir to allow for distclean to run missing following in tutorials folder csharp/tutorial.sln d/async_client.d d/client.d d/server.d erl/client.erl erl/client.sh erl/json_client.erl erl/README erl/server.erl erl/server.sh gen-html/index.html gen-html/style.css go/server.crt go/server.key hs/HaskellClient.hs hs/HaskellServer.hs java/build.xml js/build.xml js/src/Httpd.java js/tutorial.html ocaml/CalcClient.ml ocaml/CalcServer.ml ocaml/_oasis ocaml/README perl/PerlClient.pl perl/PerlServer.pl php/PhpClient.php php/PhpServer.php php/runserver.py shared.thrift tutorial.thrift,violation_of_modularity,N
+80,issue,"Following exception is raised by the read_message_begin method"" Missing version identifier from `receive_message' Comparing the implementation of the method in the Ruby class to its python counterpart TBinaryProtocol shows that the Ruby method is quite outdated. I have changed the method to be: def read_message_begin version = read_i32 if(version <0) if (version & VERSION_MASK != VERSION_1) raise 'Missing version identifier') end type = version & 0√ó000000ff name = read_string seqid = read_i32 else name = type = read_byte seqid = read_i32 end [name, type, seqid] end This does not raise an exception on the strict read condition in the else clause as is raised by the Python version but can be easily added to.",using_obsolete_technology,N
+81,issue,Ruby version of binaryprotocol.rb has an outdated version of read_message_begin,using_obsolete_technology,N
+82,issue,"If large block allocation or garbage collection is not efficient in golang, that sounds like a language issue. One is not supposed to have to think about heap or stack in go, from what I understand (I am by no means an expert). The proposed solution sounds like it would create a cyclic dependency.",violation_of_modularity,Y
+83,issue,thrift perl debian package is placing files in the wrong place,violation_of_modularity,Y
+84,issue,"As support for the older cocoa compiler and library have been removed (see THRIFT-4719), all of the issues in Jira related to that code have also been removed. For legacy cocoa support you can use version 0.12.0 - everyone is expected to move to swift if they want to use the next release of Thrift.",using_obsolete_technology,Y
+85,issue,"Currently our perl package module files contain multiple packages. We should break each package out to an individual file (or at least make sure everything is in the Thrift namespace) and properly version it. Package versioning was introduced in Perl 5.10 so: 1. Update the minimum required perl to 5.10. This is based on indicating that perl version object was added to perl in 5.10. 2. For each package use the {{perl MODULE VERSION}} perlmod syntax, where VERSION is {{v0.11.0}}. This is based on 3. Each module not under the Thrift namespace must be moved there TMessageType, TType). This will be a breaking change, but necessary for proper packaging of the library. Currently if you inspect the Perl PAUSE version metadata for Thrift's sub-modules only the 0.9.0 modules from gslin have version identities. For example if you look at Thrift and in the CPAN list of packages at you will see: There are some anomalies, for example packages defined in Thrift.pm come out at the top level namespace like: So technically if you do 'install I would expect you might get thrift. This is wrong and should be fixed. needs to be inside Thrift, not at the top level. Also we should pull in relevant changes from the patch in THRIFT-4059 around improving packaging. Also we should actually use TProtocolException and TTransportException instead of just TException everywhere.",violation_of_modularity,Y
+86,issue,"Currently, Thrift.cabal has an exact dependency of vector==0.10.12.2, but this version is much, much older than what other packages depend on. This makes it necessary to enable ""allow-newer"", which effectively ignores the dependency, and then breaks when a package is uploaded to hackage, and prevents inclusion of thrift in a stack curated package set. If there's no particular reason for it (and I've been successfully compiling thrift with vector==0.12.0.2), could this dependency be set to a range, .e.g. >=0.12.0? I could then enter a request for thrift to be added to stack's curated package sets.",using_obsolete_technology,Y
+87,issue,Dependency on very old version of vector library,using_obsolete_technology,N
+88,issue,"Current library is still using old project structure (project.json) which is slightly outdated and needs to be migrated to new MSBuild format. In addition to that, I'd like to have separate packages build for different .NET Standard versions starting from 1.4 (UWP) and up to 2.0 with full feature set.",using_obsolete_technology,Y
+89,issue,"ws@0.4.32 is very dangerous, please upgrade it.",using_obsolete_technology,Y
+90,issue,"Part of the reason that the thrift.apache.org site is so woefully under-maintained is that it uses a content manage system from the last century. I have to recommend that we move all our development related content to markdown files within the GitHub repository so that we have better control over it. We should be able to teach GitHub and/or the CI build systems that if the only changes are to a documentation directly, not to do a build.",using_obsolete_technology,N
+91,issue,make check-enabled C++ tests should be in lib/cpp/test,violation_of_modularity,N
+92,issue,"The C# Library Solution fails to compile because of problems with the PreBuildEvent for the ThriftTest Project - Thrift.exe is called with the outdated -csharp instead of --gen csharp - All of the existing commands in the PreBuildEvent will fail if there's a space in any directory name in the directory tree (such as ""My Documents"" or ""Visual Studio 2008""). - The recursive forced rmdir command will match other directory trees that share a common root (e.g. c:\test\Work\ will be recursively removed if the project is located in c:\test\Work for Thrift\test\csharp) I have attached a patch that replaces the PreBuildEvent in the ThriftTest project file to fix these problems and work with directory trees that contain spaces. As the thrift.exe compiler does NOT accept paths with spaces when surrounded by quotes, my script generates MSDOS 8.3 pathnames to pass to the thrift compiler and it appears to work just fine. This has only been tested on my machine with VS.net pro 2008 and a current thrift checkout",using_obsolete_technology,Y
+93,issue,"When building thrift python libs on ubuntu, it places the files into site-packages instead of dist-utils",violation_of_modularity,Y
+94,pull,"@jihoonson If you mean the actual ""CompactionTask"" etc classes, I think probably moving something so heavy from druid-indexing-service all the way down to druid-api would probably require collapsing a ton of druid modules into one giant druid-core module. I guess we could do that but it seems like a big change. Do you think it's worth it?",violation_of_modularity,Y
+95,pull,Could be moved to `UpdateFeaturesResponse` as a utility.,violation_of_modularity,N
+96,pull,"@vanzin : The followup to this is #21066; I could move the compile time changes there but if you are going to have POMs playing with dependencies, seems best to have it all in one place...the other one just setting up the compile and tests
+@jerryshao what do you suggest? It was your proposal to split things into pom and source for ease of reviewal, after all?",violation_of_modularity,Y
+97,pull,We already have a test plugin in `tests/plugins/`. This is less complete than that one and should probably not be added here. We can consider moving the other one (in a separate PR) to serve as a sample.,violation_of_modularity,N
+98,pull,"Yea, since this topic is important for some users, I mean we better move the doc into `./docs/` ( I feel novices dont seem to check the code documents).",violation_of_modularity,N
+99,pull,Can you restructure this to use `val` - it helps to have a single block on the RHS that encapsulates the full assignment logic (as opposed to being exposed to the method's entire scope).,violation_of_modularity,N
+100,pull,"This PR is for code review, **this should not be merged yet.** It still needs to be debugged and the actual deployment of entities is not completed yet.  Also, it **may be missing some files** since I tore everything down and put it back together.  I'll add back the missing files (like report.go and version.go).  Sorry about that :-)
+The goal here is to refactor the code to modularize it better so we can add ""big"" features.  
+The major refactors are:
+- refactor utils.go into separate classes
+- refactor manifest and deployment functions into parsers and readers
+- refactor classes into packages that are more descriptive of their functions, e.g. parsers, utils, deployers
+The features added in this code:
+- support for multiple packages in the service deployer.  This is mainly targeted towards multiple packages in the deployment.yaml, not the manifest.yaml
+- add parameter and annotation binding from the deployment file into the deployment plan.
+- add support for sequence notation per use case` openstack.`
+- add placeholder for dependency specification in a package.",violation_of_modularity,Y
+101,pull,"It doesn't seem necessary to put this in `RecordBatchStreamReader`, you can move it to the implementation class.",violation_of_modularity,N
+102,pull,Do me a favor and move both `MemSpan` and `MemArena` so the test source files are in alphabetically order.,violation_of_modularity,N
+103,pull,"IMO, the JMS pool from 5.x should not be migrated to Artemis.  It belongs in it's own project with it's own release cycle.  Also, it makes sense for it to *not* be in the ActiveMQ project to make clear that the pool is generic and isn't tied to any ActiveMQ broker.
+The pool on messaginghub has JMS 2.0 support.",violation_of_modularity,N
+104,commit,"Refactor to make the HttpAction objects and servlets independent of Jetty.
+An indirect dependency existed for HttpAction on SPARQLServer.
+Refactoring is a step towards JENA-201 (Deliver Fuseki as a WAR file).",violation_of_modularity,Y
+105,commit,HBASE-4422  Move block cache parameters and references into single CacheConf class (jgray),violation_of_modularity,N
+106,commit,"Rewrite rebalancing plan generator
+This patch splits the functionality of the module out into three
+classes or work:
+* Fixing zoning and replica level violations
+* Contracting a cluster
+* Rebalancing shards across a cluster
+The implementations of the first two features are pretty similar - find
+the shards that need to be moved, then choose an optimal home for each
+of them.  By default the contraction code will remove shards from nodes
+in the ""decom"" zone, and the rebalancing code will ignore that zone
+entirrely. An optimal home is a node that
+a) is in the correct zone, and
+b) has the fewest # of shards for the DB among nodes in the zone, and
+c) has the fewest total # of shards among nodes satisfying a) and b)
+The implementation of rebalancing is a bit more complicated.  The
+rebalancing algorithm looks roughly like this
+For DB in all_dbs:
+    Ensure all nodes have at least (N*Q) div length(Nodes) shards
+    Ensure no node has more than (N*Q) div length(Nodes) + 1 shards
+For node in nodes:
+    If node has more than TotalShards div length(Nodes) + 1 shards:
+        Donate shard to another node
+The net result is that each database is balanced across the cluster and
+the cluster as a whole is globally balanced.
+The current version of the module prints out shard move and copy
+operations in a clou-friendly format via io:format.  It also returns a
+list of {Op, #shard{}, node()} tuples representing the operations.
+The rebalancer will stop after generating 1000 operations by default.
+The limit can be customized by using the 1-arity versions of expand,
+contract and fix_zoning, but note that the performance of the rebalancer
+degrades as the number of pending operations increases.
+BugzID: 23690
+BugzID: 20770",violation_of_modularity,Y
+107,commit,Move BytesSource and StringSource from converter to api as they are used from several places including util which should not know about converters,violation_of_modularity,Y
+108,commit,[AIRFLOW-6858] Decouple DagBag and Executor (#7479),violation_of_modularity,N
+109,commit,"Legacy deserializer can create unexpected boundary range tombstones
+patch by Sylvain Lebresne; reviewed by Branimir Lambov for CASSANDRA-13237",using_obsolete_technology,N
+110,commit,[AIRFLOW-4535] Break jobs.py into multiple files (#5303),violation_of_modularity,Y
+111,commit,Move SshBasedJavaAppSetup class into its own file,violation_of_modularity,N
+112,commit,"NIFI-6873: Added support for replacing a process group
+ - decoupled flow update request behavior from VersionsResource into new abstract FlowUpdateResource
+ - added replace process group functionality in ProcessGroupResource
+ - parameterized FlowUpdateResource and created entity hierarchies to allow for maximum code sharing across different update types
+ - refactored flow update methods to make use of commonality across different update types whenever possible
+ - fixed issues in StandardProcessGroup verify update methods where same components existed in different ancestry chains but were considered a match when they shouldn't be
+ - improved StandardProcessGroup to properly match up components on update using generated versioned component ids, when necessary to allow for update flow to efficiently match common components on flow import
+This closes #4023.",violation_of_modularity,Y
+113,commit,"[FLINK-19165] Refactor the UnilateralSortMerger
+This is a preparation for introducing a sorted inputs in BATCH execution
+mode. It refactors the UnilateralSortMerger into more composable pieces.
+Additionally it adds the option to use a push-based approach instead of
+spawning a Reader thread that consumes from an input iterator.
+This closes #13357",violation_of_modularity,Y
+114,commit,YARN-7218.  Decouple YARN Services REST API namespace from RM.  (Contributed by Eric Yang),violation_of_modularity,Y
+115,commit,"Refactor LocalTaskExecutor (#1033)
+* Remove JobExceptionHandler
+* Remove ExecutorServiceHandler
+* Remove cloud.JobFacade
+* Remove useless test suits
+* Rename elastic-job to elasticjob
+* Decouple LocalCloudJobConfiguration and JobRootConfiguration
+* Refactor LocalTaskExecutor
+* Remove LocalCloudJobConfiguration",violation_of_modularity,Y
+116,commit,"ISSUE #978: decouple metaformat cmd
+Descriptions of the changes in this PR:
+- introduce new commands - initnewcluster, nukeexistingcluster, whatisinstanceid
+- add testcases initnewcluster and nukeexistingcluster at BookKeeperAdmin level
+Master Issue: #978
+This closes #979 from reddycharan/splitmetaformat, closes #978",violation_of_modularity,Y
