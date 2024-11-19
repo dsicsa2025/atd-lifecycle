@@ -20,17 +20,17 @@ Our study shows that resolving ATD improves software quality in the short-term, 
     A CSV containing a list of the 18 ATD items from the trackers of five Apache open-source projects. From the 18 identified Non-ATD items, we identified 753 files in the initial commit phase and 621 files in the recorded phase.
 
 ### Source code
-1. **commit_hash_retrieval_with_date.py**: Script to extract commit hashes along with their corresponding dates from a Git repository.
-2. **to_get_all_changes_updated.py**: Script for retrieving and listing all changes or updates in files over time.
-3. **und_count_file_dependencies.py**: Script for counting file dependencies using Understand (static analysis tool).
+1. **commit_hash_retrieval_with_date.py**: Script to extract commit hashes with a range of times from a Git repository.
+2. **to_get_all_changes_updated.py**: Script for retrieving and listing all changes or updates in files between introduction and payment.
+3. **und_count_file_dependencies.py**: Script for counting file dependencies using Understand by Scitools.
 4. **golang-dependency.py**: Script to analyze and extract file dependencies in a Go (Golang) project.
 5. **erlang-dependency.py**: Script to analyze and extract file dependencies in an Erlang project.
-6. **file_path.csv**: CSV file containing file paths, likely used as input data for other scripts.
-7. **calculate_sloc.py**: Script to calculate the Source Lines of Code (SLOC) for given files or directories.
+6. **file_path.csv**: CSV file containing file paths of ATD-affected files.
+7. **calculate_sloc.py**: Script to calculate the Source Lines of Code (SLOC) for given ATD-affected files.
 8. **lizard-cyclomatic-complexity.py**: Script for calculating cyclomatic complexity of source code using the Lizard library.
 9. **data_distribution_log1p.py**: Script for analyzing and visualizing data distributions using a log(1+x) transformation.
 10. **calculate_mean_median_min_max.py**: Script to calculate statistical values like mean, median, minimum, and maximum from a dataset.
 11. **mann-whitney-u-test.py**: Script to perform the Mann-Whitney U test, a non-parametric test for comparing two independent samples.
 12. **cohens_d.py**: Script for computing Cohen's d, a measure of effect size between two groups.
 13. **boxplot_number_of_changes.py**: Script for generating a boxplot to visualize the number of changes in files.
-14. **partial-spearmans-correlation.py**: Script for calculating partial Spearman’s correlation coefficients between variables. 
+14. **partial-spearmans-correlation.py**: Script for calculating partial Spearman’s correlation coefficients between introduction and payment. 
